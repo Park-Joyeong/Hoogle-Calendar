@@ -1,5 +1,10 @@
-## 제목
+## Title
 
-## 작업 내용
+`about __`
 
-## 주의 사항
+## Tasks
+
+-   [ ] task1
+-   [ ] task2
+
+## ScreenShot
