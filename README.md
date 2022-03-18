@@ -8,3 +8,7 @@
 
 [ ※ 상기 이미지는 예상 완성도로 실제와 다를 수 있습니다. ]
 ![예상완성도](https://user-images.githubusercontent.com/47668556/156963154-bc3aa88b-c4cc-4311-b883-220b6cf84d5d.jpg)  
+
+## 프로젝트 시작하는법.
+
+- SETTING.md 참조.

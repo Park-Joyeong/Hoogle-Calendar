@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import MonthSelector from "./CalendarComponents/MonthSelector";
 import CalendarBody from "./CalendarComponents/CalendarBody";
 
 const Calendar = () => {
-    let str:string = "TypeScript";
+    const currentYYYYMM = getCurrentYYYYMM();
+    const [selectedYYYYMM, setSelectedYYYYMM] = useState(currentYYYYMM);
     return (
         <div>
             <MonthSelector />
@@ -11,5 +12,9 @@ const Calendar = () => {
         </div>
     );
 };
+
+function getCurrentYYYYMM() {
+    return new Date().getFullYear().toString() + ("0" + (new Date().getMonth() + 1)).slice(-2);
+}
 
 export default Calendar;
