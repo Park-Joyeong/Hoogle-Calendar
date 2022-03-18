@@ -9,6 +9,7 @@ module.exports = {
     ecmaVersion: 2018,
     project: ["./tsconfig.json"]
   },
+  ignorePatterns: ["!**/*", ".storybook/*"],
   rules: {
     "prettier/prettier": ["error", {
       endOfLine: "auto"
