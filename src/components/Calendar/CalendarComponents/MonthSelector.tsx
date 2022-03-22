@@ -1,21 +1,28 @@
 import React from "react";
 
-const MonthSelector = () => {
+export interface Props {
+    selectedYYYYMM: string;
+    setSelectedYYYYMM: (selectedYYYYMM: string) => void;
+}
+
+const MonthSelector = ({ selectedYYYYMM }: Props) => {
+    console.log(`Selected month: ${selectedYYYYMM}`);
+    const selectedYYYY = selectedYYYYMM.substring(0,4);
     return (
         <div>
             <select>
-                <option value="Jan">January</option>
-                <option value="Feb">February</option>
-                <option value="Mar">March</option>
-                <option value="Apr">April</option>
-                <option value="May">May</option>
-                <option value="Jun">June</option>
-                <option value="Jul">July</option>
-                <option value="Aug">August</option>
-                <option value="Sep">September</option>
-                <option value="Oct">October</option>
-                <option value="Nov">November</option>
-                <option value="Dec">December</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
             </select>
             <select>
                 <option value="2015">2015</option>

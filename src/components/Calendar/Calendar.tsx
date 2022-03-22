@@ -7,7 +7,7 @@ const Calendar = () => {
     const [selectedYYYYMM, setSelectedYYYYMM] = useState(currentYYYYMM);
     return (
         <div>
-            <MonthSelector />
+            <MonthSelector selectedYYYYMM={selectedYYYYMM} setSelectedYYYYMM={setSelectedYYYYMM} />
             <CalendarBody />
         </div>
     );
