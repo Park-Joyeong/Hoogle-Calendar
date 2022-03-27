@@ -9,13 +9,13 @@ const MonthSelector = ({ selectedYYYYMM }: Props) => {
     const selectedYYYY = selectedYYYYMM.substring(0, 4);
     const selectedMM = selectedYYYYMM.substring(4, 2);
 
-    function handleSelectMMChange(event) {
+    // function handleSelectMMChange(event) {
 
-    }
+    // }
 
     return (
         <div>
-            <select value={selectedMM} onChange={handleSelectMMChange}>
+            <select value={selectedMM} /*onChange={handleSelectMMChange}*/>
                 <option value="01">January</option>
                 <option value="02">February</option>
                 <option value="03">March</option>
