@@ -4,6 +4,8 @@ import { Calculator } from "./practice/liftingStateUp/Calculator";
 
 const App = () => (
     <div>
+        <Calendar />
+        <hr />
         <Calculator />
     </div>
 );
