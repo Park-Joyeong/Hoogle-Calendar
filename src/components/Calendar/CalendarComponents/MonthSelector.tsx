@@ -1,40 +1,35 @@
 import React from "react";
-import monthsData: object from "./months.json";
-
-type Months = {
-    01: string,
-    02: string,
-    "03": "March",
-    "04": "April",
-    "05": "May",
-    "06": "June",
-    "07": "July",
-    "08": "August",
-    "09": "September",
-    "10": "October",
-    "11": "November",
-    "12": "December"
-}
+import monthsData from "./months.json";
 
 export interface Props {
     selectedYYYYMM: string;
     setSelectedYYYYMM: (selectedYYYYMM: string) => void;
 }
 
+const obj = {
+    "01": "January",
+    "02": "February",
+};
+
+console.log(obj["01"]);
+console.log(obj["02"]);
+
+Object.keys(obj).map((item, index) => {
+    console.log(obj[item]);
+})
+
+
 const MonthSelector = ({ selectedYYYYMM }: Props) => {
     const selectedYYYY = selectedYYYYMM.substring(0, 4);
     const selectedMM = selectedYYYYMM.substring(4, 6);
-    console.log(typeof monthsData);
     return (
         <div>
             <select value={selectedMM}>
                 {Object.keys(monthsData).map((item, index) => {
-                    console.log(item);
-                    console.log(typeof item);
                     return (
                         <option value={item} key={index}>
                             {monthsData["01"]}
-                            {/* {monthsData[item]} */}
+                            {(monthsData as any)[item]}
                         </option>
                     );
                 })}
