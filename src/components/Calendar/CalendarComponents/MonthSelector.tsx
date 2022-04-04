@@ -6,33 +6,21 @@ export interface Props {
     setSelectedYYYYMM: (selectedYYYYMM: string) => void;
 }
 
-const obj = {
-    "01": "January",
-    "02": "February",
-};
-
-console.log(obj["01"]);
-console.log(obj["02"]);
-
-Object.keys(obj).map((item, index) => {
-    console.log(obj[item]);
-})
-
-
 const MonthSelector = ({ selectedYYYYMM }: Props) => {
     const selectedYYYY = selectedYYYYMM.substring(0, 4);
     const selectedMM = selectedYYYYMM.substring(4, 6);
     return (
         <div>
             <select value={selectedMM}>
-                {Object.keys(monthsData).map((item, index) => {
-                    return (
-                        <option value={item} key={index}>
-                            {monthsData["01"]}
-                            {(monthsData as any)[item]}
-                        </option>
-                    );
-                })}
+                {Object.keys(monthsData)
+                    .sort()
+                    .map((item, index) => {
+                        return (
+                            <option value={item} key={index}>
+                                {(monthsData as any)[item]}
+                            </option>
+                        );
+                    })}
             </select>
             <select value={selectedYYYY}>
                 <option value="2015">2015</option>
