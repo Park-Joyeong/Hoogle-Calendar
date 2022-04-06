@@ -1,17 +1,21 @@
 import React from "react";
 import monthsData from "./months.json";
+import yearsData from "./years.json";
 
 export interface Props {
     selectedYYYYMM: string;
-    setSelectedYYYYMM: (selectedYYYYMM: string) => void;
+    handleSelectedYYYYMMChange: (yyyymm: string) => void;
 }
 
-const MonthSelector = ({ selectedYYYYMM }: Props) => {
+const MonthSelector = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => {
     const selectedYYYY = selectedYYYYMM.substring(0, 4);
     const selectedMM = selectedYYYYMM.substring(4, 6);
+    const onYYYYChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        handleSelectedYYYYMMChange(event.target.value + selectedMM);
+    };
     return (
         <div>
-            <select value={selectedMM}>
+            <select value={selectedMM} onChange={onYYYYChanged}>
                 {Object.keys(monthsData)
                     .sort()
                     .map((item, index) => {
@@ -23,22 +27,15 @@ const MonthSelector = ({ selectedYYYYMM }: Props) => {
                     })}
             </select>
             <select value={selectedYYYY}>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
-                <option value="2027">2027</option>
-                <option value="2028">2028</option>
-                <option value="2029">2029</option>
-                <option value="2030">2030</option>
+                {Object.keys(yearsData)
+                    .sort()
+                    .map((item, index) => {
+                        return (
+                            <option value={item} key={index}>
+                                {(yearsData as any)[item]}
+                            </option>
+                        );
+                    })}
             </select>
         </div>
     );

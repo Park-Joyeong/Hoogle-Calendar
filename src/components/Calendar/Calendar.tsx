@@ -5,9 +5,12 @@ import CalendarBody from "./CalendarComponents/CalendarBody";
 const Calendar = () => {
     const currentYYYYMM = getCurrentYYYYMM();
     const [selectedYYYYMM, setSelectedYYYYMM] = useState(currentYYYYMM);
+    const handleSelectedYYYYMMChange = (yyyymm: string) => {
+        setSelectedYYYYMM(yyyymm);
+    };
     return (
         <div>
-            <MonthSelector selectedYYYYMM={selectedYYYYMM} setSelectedYYYYMM={setSelectedYYYYMM} />
+            <MonthSelector selectedYYYYMM={selectedYYYYMM} handleSelectedYYYYMMChange={handleSelectedYYYYMMChange} />
             <CalendarBody selectedYYYYMM={selectedYYYYMM} />
         </div>
     );
@@ -15,10 +18,6 @@ const Calendar = () => {
 
 function getCurrentYYYYMM() {
     return new Date().getFullYear().toString() + ("0" + (new Date().getMonth() + 1)).slice(-2);
-}
-
-function handleSelectedYYYYMMChange() {
-    console.log("");
 }
 
 export default Calendar;
