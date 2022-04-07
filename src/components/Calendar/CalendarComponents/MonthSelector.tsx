@@ -13,9 +13,12 @@ const MonthSelector = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) =>
     const onYYYYChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
         handleSelectedYYYYMMChange(event.target.value + selectedMM);
     };
+    const onMMChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        handleSelectedYYYYMMChange(selectedYYYY + event.target.value);
+    };
     return (
         <div>
-            <select value={selectedMM} onChange={onYYYYChanged}>
+            <select value={selectedMM} onChange={onMMChanged}>
                 {Object.keys(monthsData)
                     .sort()
                     .map((item, index) => {
@@ -26,7 +29,7 @@ const MonthSelector = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) =>
                         );
                     })}
             </select>
-            <select value={selectedYYYY}>
+            <select value={selectedYYYY} onChange={onYYYYChanged}>
                 {Object.keys(yearsData)
                     .sort()
                     .map((item, index) => {
