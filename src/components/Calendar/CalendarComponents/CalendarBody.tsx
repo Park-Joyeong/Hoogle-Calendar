@@ -1,5 +1,5 @@
 import React from "react";
-import monthsData from "./months.json";
+import { MONTHS } from "./months";
 
 export interface Props {
     selectedYYYYMM: string;
@@ -22,10 +22,10 @@ const CalendarBody = (props: Props) => {
         const rowData = [];
         let weekdayIdx = weekdayIdxOfFirstDay;
         for (let i = firstDay; i <= lastDay; i++) {
-            rowData.push(<td>{i}</td>);
+            rowData.push(<td key={i}>{i}</td>);
             weekdayIdx++;
             if (weekdayIdx === 7) {
-                tableData.push(<tr>{rowData}</tr>);
+                tableData.push(<tr key={i}>{rowData}</tr>);
             }
         }
     };
@@ -33,10 +33,12 @@ const CalendarBody = (props: Props) => {
     return (
         <div>
             <h1>
-                {(monthsData as any)[props.selectedYYYYMM.substring(4, 6)]}&nbsp;
+                {(MONTHS as any)[props.selectedYYYYMM.substring(4, 6)]}&nbsp;
                 {props.selectedYYYYMM.substring(0, 4)}
             </h1>
-            <table>{tableData}</table>
+            <table>
+                <tbody>{tableData}</tbody>
+            </table>
         </div>
     );
 };

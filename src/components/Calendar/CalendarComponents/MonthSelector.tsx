@@ -1,6 +1,6 @@
 import React from "react";
-import monthsData from "./months.json";
-import yearsData from "./years.json";
+import { MONTHS } from "./months";
+import { YEARS } from "./years";
 
 export interface Props {
     selectedYYYYMM: string;
@@ -19,23 +19,23 @@ const MonthSelector = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) =>
     return (
         <div>
             <select value={selectedMM} onChange={onMMChanged}>
-                {Object.keys(monthsData)
+                {Object.entries(MONTHS)
                     .sort()
-                    .map((item, index) => {
+                    .map(([key, value], index) => {
                         return (
-                            <option value={item} key={index}>
-                                {(monthsData as any)[item]}
+                            <option value={key} key={index}>
+                                {`${value}`}
                             </option>
                         );
                     })}
             </select>
             <select value={selectedYYYY} onChange={onYYYYChanged}>
-                {Object.keys(yearsData)
+                {Object.entries(YEARS)
                     .sort()
-                    .map((item, index) => {
+                    .map(([key, value], index) => {
                         return (
-                            <option value={item} key={index}>
-                                {(yearsData as any)[item]}
+                            <option value={key} key={index}>
+                                {`${value}`}
                             </option>
                         );
                     })}
