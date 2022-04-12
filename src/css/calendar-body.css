@@ -1,0 +1,10 @@
+.calendar-body-table,
+.calendar-body-td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.calendar-body-table {
+    width: 85%;
+    height: 700px;
+}
