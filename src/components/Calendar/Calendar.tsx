@@ -11,7 +11,7 @@ const Calendar = () => {
     return (
         <div>
             <MonthSelector selectedYYYYMM={selectedYYYYMM} handleSelectedYYYYMMChange={handleSelectedYYYYMMChange} />
-            <CalendarBody selectedYYYYMM={selectedYYYYMM} />
+            <CalendarBody selectedYYYYMM={selectedYYYYMM} handleSelectedYYYYMMChange={handleSelectedYYYYMMChange} />
         </div>
     );
 };

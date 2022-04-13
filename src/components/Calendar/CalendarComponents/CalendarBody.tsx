@@ -1,21 +1,22 @@
-import React from "react";
+import React, { WheelEvent } from "react";
 import { MONTHS } from "./months";
 import "../../../css/calendar-body.css";
 
 export interface Props {
     selectedYYYYMM: string;
+    handleSelectedYYYYMMChange: (yyyymm: string) => void;
 }
 
-const CalendarBody = (props: Props) => {
+const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => {
     const firstDay = 1;
     const weekdayIdxOfFirstDay = new Date(
-        parseInt(props.selectedYYYYMM.substring(0, 4)),
-        parseInt(props.selectedYYYYMM.substring(4, 6)) - 1,
+        parseInt(selectedYYYYMM.substring(0, 4)),
+        parseInt(selectedYYYYMM.substring(4, 6)) - 1,
         1,
     ).getDay(); // Sunday - Saturday : 0 - 6
     const lastDay = new Date(
-        parseInt(props.selectedYYYYMM.substring(0, 4)),
-        parseInt(props.selectedYYYYMM.substring(4, 6)),
+        parseInt(selectedYYYYMM.substring(0, 4)),
+        parseInt(selectedYYYYMM.substring(4, 6)),
         0,
     ).getDate();
     const tableData: JSX.Element[] = [];
@@ -50,13 +51,24 @@ const CalendarBody = (props: Props) => {
         }
     };
     setTableData();
+
+    const handleOnWheel = (e: WheelEvent<HTMLDivElement>) => {
+        const isWheelUp = e.deltaY < 0 ? true : false;
+        const monthAddCount = isWheelUp ? -1 : 1;
+        const selectedYYYY = selectedYYYYMM.substring(0, 4);
+        const selectedMM = selectedYYYYMM.substring(4, 6);
+        const targetDate = new Date(parseInt(selectedYYYY), parseInt(selectedMM) - 1 + monthAddCount);
+        handleSelectedYYYYMMChange(
+            targetDate.getFullYear().toString() + (targetDate.getMonth() + 1).toString().padStart(2, "0"),
+        );
+    };
     return (
         <div>
             <h1>
-                {(MONTHS as any)[props.selectedYYYYMM.substring(4, 6)]}&nbsp;
-                {props.selectedYYYYMM.substring(0, 4)}
+                {(MONTHS as any)[selectedYYYYMM.substring(4, 6)]}&nbsp;
+                {selectedYYYYMM.substring(0, 4)}
             </h1>
-            <table className="calendar-body-table">
+            <table className="calendar-body-table" onWheel={handleOnWheel}>
                 <tbody>{tableData}</tbody>
             </table>
         </div>
