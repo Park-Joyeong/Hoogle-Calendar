@@ -1,6 +1,7 @@
 import React from "react";
 import { MONTHS } from "./months";
 import { YEARS } from "./years";
+import "../../../css/month-selector.css";
 
 export interface Props {
     selectedYYYYMM: string;
@@ -16,30 +17,38 @@ const MonthSelector = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) =>
     const onMMChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
         handleSelectedYYYYMMChange(selectedYYYY + event.target.value);
     };
+    const handleTodayBtnClick = () => {
+        alert("Clicked");
+    };
     return (
-        <div>
-            <select value={selectedMM} onChange={onMMChanged}>
-                {Object.entries(MONTHS)
-                    .sort()
-                    .map(([key, value], index) => {
-                        return (
-                            <option value={key} key={index}>
-                                {`${value}`}
-                            </option>
-                        );
-                    })}
-            </select>
-            <select value={selectedYYYY} onChange={onYYYYChanged}>
-                {Object.entries(YEARS)
-                    .sort()
-                    .map(([key, value], index) => {
-                        return (
-                            <option value={key} key={index}>
-                                {`${value}`}
-                            </option>
-                        );
-                    })}
-            </select>
+        <div className="month-selector">
+            <div className="selectbox-selector">
+                <select value={selectedMM} onChange={onMMChanged}>
+                    {Object.entries(MONTHS)
+                        .sort()
+                        .map(([key, value], index) => {
+                            return (
+                                <option value={key} key={index}>
+                                    {`${value}`}
+                                </option>
+                            );
+                        })}
+                </select>
+                <select value={selectedYYYY} onChange={onYYYYChanged}>
+                    {Object.entries(YEARS)
+                        .sort()
+                        .map(([key, value], index) => {
+                            return (
+                                <option value={key} key={index}>
+                                    {`${value}`}
+                                </option>
+                            );
+                        })}
+                </select>
+            </div>
+            <div className="today-button-selector">
+                <button onClick={handleTodayBtnClick}>Today</button>
+            </div>
         </div>
     );
 };

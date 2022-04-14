@@ -1,0 +1,4 @@
+div.month-selector div.selectbox-selector,
+div.month-selector div.today-button-selector {
+    display: inline-block;
+}
