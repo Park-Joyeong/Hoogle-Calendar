@@ -5,6 +5,8 @@ import "../../../css/calendar-body.css";
 export interface Props {
     selectedYYYYMM: string;
     handleSelectedYYYYMMChange: (yyyymm: string) => void;
+    scheduleArray: object[];
+    handleScheduleArrayChange: (scheduleArray: []) => void;
 }
 
 const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => {
