@@ -1,6 +1,7 @@
 import React, { WheelEvent } from "react";
 import { MONTHS } from "./months";
 import "../../../css/calendar-body.css";
+import ScheduleModal from "./ScheduleModal";
 
 export interface Props {
     selectedYYYYMM: string;
@@ -73,6 +74,7 @@ const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => 
             <table className="calendar-body-table" onWheel={handleOnWheel}>
                 <tbody>{tableData}</tbody>
             </table>
+            <ScheduleModal />
         </div>
     );
 };
