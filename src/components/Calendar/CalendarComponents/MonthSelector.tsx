@@ -18,7 +18,9 @@ const MonthSelector = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) =>
         handleSelectedYYYYMMChange(selectedYYYY + event.target.value);
     };
     const handleTodayBtnClick = () => {
-        alert("Clicked");
+        const currentYYYYMM =
+            new Date().getFullYear().toString() + (new Date().getMonth() + 1).toString().padStart(2, "0");
+        handleSelectedYYYYMMChange(currentYYYYMM);
     };
     return (
         <div className="month-selector">
