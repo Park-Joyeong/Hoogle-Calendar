@@ -33,7 +33,13 @@ const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => 
         }
         for (let i = firstDay; i <= lastDay; i++) {
             rowData.push(
-                <td key={i} className="calendar-body-td">
+                <td
+                    key={i}
+                    className="calendar-body-td"
+                    onClick={() => {
+                        toggleModal(!modalShown);
+                    }}
+                >
                     {i}
                 </td>,
             );
@@ -65,6 +71,8 @@ const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => 
             targetDate.getFullYear().toString() + (targetDate.getMonth() + 1).toString().padStart(2, "0"),
         );
     };
+
+    const [modalShown, toggleModal] = React.useState(false);
     return (
         <div>
             <h1>
@@ -74,7 +82,14 @@ const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => 
             <table className="calendar-body-table" onWheel={handleOnWheel}>
                 <tbody>{tableData}</tbody>
             </table>
-            <ScheduleModal />
+            <ScheduleModal
+                shown={modalShown}
+                close={() => {
+                    toggleModal(false);
+                }}
+            >
+                <h1>Look! I'm inside the modal!</h1>
+            </ScheduleModal>
         </div>
     );
 };
