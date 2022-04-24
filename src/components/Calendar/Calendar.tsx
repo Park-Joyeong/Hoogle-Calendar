@@ -3,21 +3,21 @@ import MonthSelector from "./CalendarComponents/MonthSelector";
 import CalendarBody from "./CalendarComponents/CalendarBody";
 
 const Calendar = () => {
-    const currentYYYYMM = getCurrentYYYYMM();
-    const [selectedYYYYMM, setSelectedYYYYMM] = useState(currentYYYYMM);
+    const currentYYYYMMDD = getCurrentYYYYMMDD();
+    const [selectedYYYYMMDD, setSelectedYYYYMMDD] = useState(currentYYYYMMDD);
     const [scheduleArray, setScheduleArray] = useState<object[]>([]);
-    const handleSelectedYYYYMMChange = (yyyymm: string) => {
-        setSelectedYYYYMM(yyyymm);
+    const handleSelectedYYYYMMDDChange = (yyyymmdd: string) => {
+        setSelectedYYYYMMDD(yyyymmdd);
     };
     const handleScheduleArrayChange = (scheduleArray: object[]) => {
         setScheduleArray(scheduleArray);
     };
     return (
         <div>
-            <MonthSelector selectedYYYYMM={selectedYYYYMM} handleSelectedYYYYMMChange={handleSelectedYYYYMMChange} />
+            <MonthSelector selectedYYYYMMDD={selectedYYYYMMDD} handleSelectedYYYYMMDDChange={handleSelectedYYYYMMDDChange} />
             <CalendarBody
-                selectedYYYYMM={selectedYYYYMM}
-                handleSelectedYYYYMMChange={handleSelectedYYYYMMChange}
+                selectedYYYYMMDD={selectedYYYYMMDD}
+                handleSelectedYYYYMMDDChange={handleSelectedYYYYMMDDChange}
                 scheduleArray={scheduleArray}
                 handleScheduleArrayChange={handleScheduleArrayChange}
             />
@@ -25,8 +25,8 @@ const Calendar = () => {
     );
 };
 
-function getCurrentYYYYMM() {
-    return new Date().getFullYear().toString() + ("0" + (new Date().getMonth() + 1)).slice(-2);
+function getCurrentYYYYMMDD() {
+    return new Date().getFullYear().toString() + ("0" + (new Date().getMonth() + 1)).slice(-2) + "01";
 }
 
 export default Calendar;
