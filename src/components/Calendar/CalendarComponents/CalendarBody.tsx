@@ -1,4 +1,4 @@
-import React, { WheelEvent } from "react";
+import React, { WheelEvent, useState } from "react";
 import { MONTHS } from "./months";
 import "../../../css/calendar-body.css";
 import ScheduleModal from "./ScheduleModal";
@@ -37,7 +37,7 @@ const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => 
                     key={i}
                     className="calendar-body-td"
                     onClick={() => {
-                        toggleModal(!modalShown);
+                        toggleModal(true);
                     }}
                 >
                     {i}
@@ -72,7 +72,7 @@ const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => 
         );
     };
 
-    const [modalShown, toggleModal] = React.useState(false);
+    const [modalShown, toggleModal] = useState(false);
     return (
         <div>
             <h1>
