@@ -14,7 +14,11 @@ const Calendar = () => {
     };
     return (
         <div>
-            <MonthSelector selectedYYYYMMDD={selectedYYYYMMDD} handleSelectedYYYYMMDDChange={handleSelectedYYYYMMDDChange} />
+            <MonthSelector
+                selectedYYYYMMDD={selectedYYYYMMDD}
+                handleSelectedYYYYMMDDChange={handleSelectedYYYYMMDDChange}
+            />
+            SELECTED YYYYMMDD : {selectedYYYYMMDD}
             <CalendarBody
                 selectedYYYYMMDD={selectedYYYYMMDD}
                 handleSelectedYYYYMMDDChange={handleSelectedYYYYMMDDChange}

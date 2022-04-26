@@ -4,23 +4,23 @@ import { YEARS } from "./years";
 import "../../../css/month-selector.css";
 
 export interface Props {
-    selectedYYYYMM: string;
-    handleSelectedYYYYMMChange: (yyyymm: string) => void;
+    selectedYYYYMMDD: string;
+    handleSelectedYYYYMMDDChange: (yyyymm: string) => void;
 }
 
-const MonthSelector = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => {
-    const selectedYYYY = selectedYYYYMM.substring(0, 4);
-    const selectedMM = selectedYYYYMM.substring(4, 6);
+const MonthSelector = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange }: Props) => {
+    const selectedYYYY = selectedYYYYMMDD.substring(0, 4);
+    const selectedMM = selectedYYYYMMDD.substring(4, 6);
     const onYYYYChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        handleSelectedYYYYMMChange(event.target.value + selectedMM);
+        handleSelectedYYYYMMDDChange(event.target.value + selectedMM + "01");
     };
     const onMMChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        handleSelectedYYYYMMChange(selectedYYYY + event.target.value);
+        handleSelectedYYYYMMDDChange(selectedYYYY + event.target.value + "01");
     };
     const handleTodayBtnClick = () => {
         const currentYYYYMM =
             new Date().getFullYear().toString() + (new Date().getMonth() + 1).toString().padStart(2, "0");
-        handleSelectedYYYYMMChange(currentYYYYMM);
+        handleSelectedYYYYMMDDChange(currentYYYYMM + "01");
     };
     return (
         <div className="month-selector">

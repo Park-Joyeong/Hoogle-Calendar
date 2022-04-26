@@ -4,22 +4,22 @@ import "../../../css/calendar-body.css";
 import ScheduleModal from "./ScheduleModal";
 
 export interface Props {
-    selectedYYYYMM: string;
-    handleSelectedYYYYMMChange: (yyyymm: string) => void;
+    selectedYYYYMMDD: string;
+    handleSelectedYYYYMMDDChange: (yyyymmdd: string) => void;
     scheduleArray: object[];
     handleScheduleArrayChange: (scheduleArray: []) => void;
 }
 
-const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => {
+const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange }: Props) => {
     const firstDay = 1;
     const weekdayIdxOfFirstDay = new Date(
-        parseInt(selectedYYYYMM.substring(0, 4)),
-        parseInt(selectedYYYYMM.substring(4, 6)) - 1,
+        parseInt(selectedYYYYMMDD.substring(0, 4)),
+        parseInt(selectedYYYYMMDD.substring(4, 6)) - 1,
         1,
     ).getDay(); // Sunday - Saturday : 0 - 6
     const lastDay = new Date(
-        parseInt(selectedYYYYMM.substring(0, 4)),
-        parseInt(selectedYYYYMM.substring(4, 6)),
+        parseInt(selectedYYYYMMDD.substring(0, 4)),
+        parseInt(selectedYYYYMMDD.substring(4, 6)),
         0,
     ).getDate();
     const tableData: JSX.Element[] = [];
@@ -37,6 +37,7 @@ const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => 
                     key={i}
                     className="calendar-body-td"
                     onClick={() => {
+                        handleSelectedYYYYMMDDChange(selectedYYYYMMDD.substring(0, 6) + i.toString().padStart(2, "0"));
                         toggleModal(true);
                     }}
                 >
@@ -64,11 +65,11 @@ const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => 
     const handleOnWheel = (e: WheelEvent<HTMLDivElement>) => {
         const isWheelUp = e.deltaY < 0 ? true : false;
         const monthAddCount = isWheelUp ? -1 : 1;
-        const selectedYYYY = selectedYYYYMM.substring(0, 4);
-        const selectedMM = selectedYYYYMM.substring(4, 6);
+        const selectedYYYY = selectedYYYYMMDD.substring(0, 4);
+        const selectedMM = selectedYYYYMMDD.substring(4, 6);
         const targetDate = new Date(parseInt(selectedYYYY), parseInt(selectedMM) - 1 + monthAddCount);
-        handleSelectedYYYYMMChange(
-            targetDate.getFullYear().toString() + (targetDate.getMonth() + 1).toString().padStart(2, "0"),
+        handleSelectedYYYYMMDDChange(
+            targetDate.getFullYear().toString() + (targetDate.getMonth() + 1).toString().padStart(2, "0") + "01",
         );
     };
 
@@ -76,8 +77,8 @@ const CalendarBody = ({ selectedYYYYMM, handleSelectedYYYYMMChange }: Props) => 
     return (
         <div>
             <h1>
-                {(MONTHS as any)[selectedYYYYMM.substring(4, 6)]}&nbsp;
-                {selectedYYYYMM.substring(0, 4)}
+                {(MONTHS as any)[selectedYYYYMMDD.substring(4, 6)]}&nbsp;
+                {selectedYYYYMMDD.substring(0, 4)}
             </h1>
             <table className="calendar-body-table" onWheel={handleOnWheel}>
                 <tbody>{tableData}</tbody>
