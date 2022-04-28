@@ -19,6 +19,8 @@ const Calendar = () => {
                 handleSelectedYYYYMMDDChange={handleSelectedYYYYMMDDChange}
             />
             SELECTED YYYYMMDD : {selectedYYYYMMDD}
+            <br />
+            SCEDULE ARRAY: {scheduleArray}
             <CalendarBody
                 selectedYYYYMMDD={selectedYYYYMMDD}
                 handleSelectedYYYYMMDDChange={handleSelectedYYYYMMDDChange}

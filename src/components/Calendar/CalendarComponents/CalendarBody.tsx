@@ -89,7 +89,27 @@ const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange }: Props)
                     toggleModal(false);
                 }}
             >
-                <h1>Look! I'm inside the modal!</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Title: <input type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Start: <input type="text" placeholder="YYYY" />-<input type="text" placeholder="MM" />-
+                                <input type="text" placeholder="DD" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                End: <input type="text" placeholder="YYYY" />-<input type="text" placeholder="MM" />-
+                                <input type="text" placeholder="DD" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </ScheduleModal>
         </div>
     );

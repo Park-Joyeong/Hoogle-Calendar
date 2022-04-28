@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../../../css/month-selector.css";
 
 type Props = {
     children: React.ReactNode;
@@ -22,7 +23,11 @@ const ScheduleModal: React.FunctionComponent<Props> = ({ children, shown, close 
                     e.stopPropagation();
                 }}
             >
-                <button onClick={close}>Close</button>
+                <div className="content-header">
+                    <button className="close-btn" onClick={close}>
+                        Close
+                    </button>
+                </div>
                 {children}
             </div>
         </div>
