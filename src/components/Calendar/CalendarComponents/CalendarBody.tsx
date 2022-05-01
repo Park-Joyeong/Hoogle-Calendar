@@ -7,7 +7,7 @@ export interface Props {
     selectedYYYYMMDD: string;
     handleSelectedYYYYMMDDChange: (yyyymmdd: string) => void;
     scheduleArray: object[];
-    handleScheduleArrayChange: (scheduleArray: object[]) => void;
+    handleScheduleArrayChange: (scheduleObject: object) => void;
 }
 
 interface ScheduleObject {
@@ -102,15 +102,13 @@ const CalendarBody = ({
                     toggleModal(false);
                 }}
                 save={() => {
-                    handleScheduleArrayChange(
-                        scheduleArray.concat({
-                            title: scheduleObject.title,
-                            startDate: scheduleObject.startDate,
-                            startTime: scheduleObject.startTime,
-                            endDate: scheduleObject.endDate,
-                            endTime: scheduleObject.endTime,
-                        }),
-                    );
+                    handleScheduleArrayChange({
+                        title: "scheduleObject.title",
+                        startDate: "20221212",
+                        startTime: "1120",
+                        endDate: "20221225",
+                        endTime: "2314",
+                    });
                 }}
             >
                 <table>

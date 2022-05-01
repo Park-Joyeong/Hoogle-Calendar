@@ -9,8 +9,8 @@ const Calendar = () => {
     const handleSelectedYYYYMMDDChange = (yyyymmdd: string) => {
         setSelectedYYYYMMDD(yyyymmdd);
     };
-    const handleScheduleArrayChange = (scheduleArray: object[]) => {
-        setScheduleArray(scheduleArray);
+    const handleScheduleArrayChange = (scheduleObject: object) => {
+        setScheduleArray(scheduleArray.concat(scheduleObject));
     };
     return (
         <div>
