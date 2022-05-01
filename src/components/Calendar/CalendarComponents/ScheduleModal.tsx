@@ -5,14 +5,14 @@ type Props = {
     children: React.ReactNode;
     shown: boolean;
     close(): void;
+    save(): void;
 };
 
-const ScheduleModal: React.FunctionComponent<Props> = ({ children, shown, close }) => {
+const ScheduleModal: React.FunctionComponent<Props> = ({ children, shown, close, save }) => {
     return shown ? (
         <div
             className="modal-backdrop"
             onClick={() => {
-                // close modal when outside of modal is clicked
                 close();
             }}
         >
@@ -29,6 +29,11 @@ const ScheduleModal: React.FunctionComponent<Props> = ({ children, shown, close 
                     </button>
                 </div>
                 {children}
+                <div className="content-header">
+                    <button className="save-btn" onClick={save}>
+                        Save
+                    </button>
+                </div>
             </div>
         </div>
     ) : null;

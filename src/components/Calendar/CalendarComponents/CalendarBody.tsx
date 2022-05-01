@@ -7,10 +7,23 @@ export interface Props {
     selectedYYYYMMDD: string;
     handleSelectedYYYYMMDDChange: (yyyymmdd: string) => void;
     scheduleArray: object[];
-    handleScheduleArrayChange: (scheduleArray: []) => void;
+    handleScheduleArrayChange: (scheduleArray: object[]) => void;
 }
 
-const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange }: Props) => {
+interface ScheduleObject {
+    title: string;
+    startDate: string;
+    startTime: string;
+    endDate: string;
+    endTime: string;
+}
+
+const CalendarBody = ({
+    selectedYYYYMMDD,
+    handleSelectedYYYYMMDDChange,
+    scheduleArray,
+    handleScheduleArrayChange,
+}: Props) => {
     const firstDay = 1;
     const weekdayIdxOfFirstDay = new Date(
         parseInt(selectedYYYYMMDD.substring(0, 4)),
@@ -88,6 +101,17 @@ const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange }: Props)
                 close={() => {
                     toggleModal(false);
                 }}
+                save={() => {
+                    handleScheduleArrayChange(
+                        scheduleArray.concat({
+                            title: scheduleObject.title,
+                            startDate: scheduleObject.startDate,
+                            startTime: scheduleObject.startTime,
+                            endDate: scheduleObject.endDate,
+                            endTime: scheduleObject.endTime,
+                        }),
+                    );
+                }}
             >
                 <table>
                     <tbody>
@@ -98,8 +122,9 @@ const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange }: Props)
                         </tr>
                         <tr>
                             <td>
-                                Start: <input type="text" placeholder="YYYY" />-<input type="text" placeholder="MM" />-
-                                <input type="text" placeholder="DD" />
+                                Start: <input type="text" placeholder="YYYY" value={selectedYYYYMMDD.substring(0, 4)} />
+                                -<input type="text" placeholder="MM" value={selectedYYYYMMDD.substring(4, 6)} />
+                                -<input type="text" placeholder="DD" value={selectedYYYYMMDD.substring(6, 8)} />
                             </td>
                         </tr>
                         <tr>
