@@ -2,6 +2,8 @@ import React, { WheelEvent, useState } from "react";
 import { MONTHS } from "./months";
 import "../../../css/calendar-body.css";
 import ScheduleModal from "./ScheduleModal";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export interface Props {
     selectedYYYYMMDD: string;
@@ -50,7 +52,16 @@ const CalendarBody = ({
                     key={i}
                     className="calendar-body-td"
                     onClick={() => {
-                        handleSelectedYYYYMMDDChange(selectedYYYYMMDD.substring(0, 6) + i.toString().padStart(2, "0"));
+                        const selectedYYYY = selectedYYYYMMDD.substring(0, 4);
+                        const selectedMM = selectedYYYYMMDD.substring(4, 6);
+                        const selectedDD = i.toString().padStart(2, "0");
+                        handleSelectedYYYYMMDDChange(selectedYYYY + selectedMM + selectedDD);
+                        setModalStartDate(
+                            new Date(parseInt(selectedYYYY), parseInt(selectedMM) - 1, parseInt(selectedDD)),
+                        );
+                        setModalEndDate(
+                            new Date(parseInt(selectedYYYY), parseInt(selectedMM) - 1, parseInt(selectedDD)),
+                        );
                         toggleModal(true);
                     }}
                 >
@@ -87,12 +98,27 @@ const CalendarBody = ({
     };
 
     const [modalShown, toggleModal] = useState(false);
+
+    const getSelectedDate = () => {
+        const selectedYYYY = selectedYYYYMMDD.substring(0, 4);
+        const selectedMM = selectedYYYYMMDD.substring(4, 6);
+        const selectedDD = selectedYYYYMMDD.substring(6, 8);
+        return new Date(parseInt(selectedYYYY), parseInt(selectedMM) - 1, parseInt(selectedDD));
+    };
+
+    const [modalStartDate, setModalStartDate] = useState(getSelectedDate());
+    const [modalStarthhmm, setModalStarthhmm] = useState("0000");
+    const [modalEndDate, setModalEndDate] = useState(getSelectedDate());
+    const [modalEndhhmm, setModalEndhhmm] = useState("2400");
     return (
         <div>
             <h1>
                 {(MONTHS as any)[selectedYYYYMMDD.substring(4, 6)]}&nbsp;
                 {selectedYYYYMMDD.substring(0, 4)}
             </h1>
+            {modalStartDate.toString()}
+            <br />
+            {modalEndDate.toString()}
             <table className="calendar-body-table" onWheel={handleOnWheel}>
                 <tbody>{tableData}</tbody>
             </table>
@@ -120,15 +146,17 @@ const CalendarBody = ({
                         </tr>
                         <tr>
                             <td>
-                                Start: <input type="text" placeholder="YYYY" value={selectedYYYYMMDD.substring(0, 4)} />
-                                -<input type="text" placeholder="MM" value={selectedYYYYMMDD.substring(4, 6)} />
-                                -<input type="text" placeholder="DD" value={selectedYYYYMMDD.substring(6, 8)} />
+                                Start:
+                                <DatePicker
+                                    selected={modalStartDate}
+                                    onChange={(date: Date) => setModalStartDate(date)}
+                                />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                End: <input type="text" placeholder="YYYY" />-<input type="text" placeholder="MM" />-
-                                <input type="text" placeholder="DD" />
+                                End:
+                                <DatePicker selected={modalEndDate} onChange={(date: Date) => setModalEndDate(date)} />
                             </td>
                         </tr>
                     </tbody>
