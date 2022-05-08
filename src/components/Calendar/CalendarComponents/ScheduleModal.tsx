@@ -23,15 +23,13 @@ const ScheduleModal: React.FunctionComponent<Props> = ({ children, shown, close,
                     e.stopPropagation();
                 }}
             >
-                <div className="content-header">
-                    <button className="close-btn" onClick={close}>
-                        Close
-                    </button>
-                </div>
                 {children}
                 <div className="content-header">
                     <button className="save-btn" onClick={save}>
                         Save
+                    </button>
+                    <button className="close-btn" onClick={close}>
+                        Close
                     </button>
                 </div>
             </div>
