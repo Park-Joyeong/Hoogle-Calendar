@@ -2,16 +2,41 @@ import React, { useState } from "react";
 import MonthSelector from "./CalendarComponents/MonthSelector";
 import CalendarBody from "./CalendarComponents/CalendarBody";
 
+type Schedule = {
+    title: string;
+    startDay: string;
+    endDay: string;
+    isAllDay: boolean;
+    startTime: string;
+    endTime: string;
+};
+
 const Calendar = () => {
     const currentYYYYMMDD = getCurrentYYYYMMDD();
     const [selectedYYYYMMDD, setSelectedYYYYMMDD] = useState(currentYYYYMMDD);
-    const [scheduleArray, setScheduleArray] = useState<object[]>([]);
+    const [scheduleArray, setScheduleArray] = useState<
+        {
+            title: string;
+            startDay: string;
+            endDay: string;
+            isAllDay: boolean;
+            startTime: string;
+            endTime: string;
+        }[]
+    >([
+        {
+            title: "Hello",
+            startDay: "20221212",
+            endDay: "20221213",
+            isAllDay: true,
+            startTime: "0000",
+            endTime: "2400",
+        },
+    ]);
     const handleSelectedYYYYMMDDChange = (yyyymmdd: string) => {
         setSelectedYYYYMMDD(yyyymmdd);
     };
-    const handleScheduleArrayChange = (scheduleObject: object) => {
-        setScheduleArray(scheduleArray.concat(scheduleObject));
-    };
+    console.log(scheduleArray);
     return (
         <div>
             <MonthSelector
@@ -20,12 +45,15 @@ const Calendar = () => {
             />
             SELECTED YYYYMMDD : {selectedYYYYMMDD}
             <br />
-            SCEDULE ARRAY: {scheduleArray}
+            SCEDULE ARRAY:{" "}
+            {scheduleArray.map((scheduleObj) => (
+                <div>title: {scheduleObj.title}</div>
+            ))}
             <CalendarBody
                 selectedYYYYMMDD={selectedYYYYMMDD}
                 handleSelectedYYYYMMDDChange={handleSelectedYYYYMMDDChange}
                 scheduleArray={scheduleArray}
-                handleScheduleArrayChange={handleScheduleArrayChange}
+                setScheduleArray={setScheduleArray}
             />
         </div>
     );

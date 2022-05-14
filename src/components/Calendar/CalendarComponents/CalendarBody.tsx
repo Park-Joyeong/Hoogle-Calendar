@@ -8,8 +8,24 @@ import "react-datepicker/dist/react-datepicker.css";
 export interface Props {
     selectedYYYYMMDD: string;
     handleSelectedYYYYMMDDChange: (yyyymmdd: string) => void;
-    scheduleArray: object[];
-    handleScheduleArrayChange: (scheduleObject: object) => void;
+    scheduleArray: {
+        title: string;
+        startDay: string;
+        endDay: string;
+        isAllDay: boolean;
+        startTime: string;
+        endTime: string;
+    }[];
+    setScheduleArray: (
+        scheduleArray: {
+            title: string;
+            startDay: string;
+            endDay: string;
+            isAllDay: boolean;
+            startTime: string;
+            endTime: string;
+        }[],
+    ) => void;
 }
 
 interface ScheduleObject {
@@ -20,12 +36,7 @@ interface ScheduleObject {
     endTime: string;
 }
 
-const CalendarBody = ({
-    selectedYYYYMMDD,
-    handleSelectedYYYYMMDDChange,
-    scheduleArray,
-    handleScheduleArrayChange,
-}: Props) => {
+const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange, scheduleArray, setScheduleArray }: Props) => {
     const firstDay = 1;
     const weekdayIdxOfFirstDay = new Date(
         parseInt(selectedYYYYMMDD.substring(0, 4)),
@@ -113,6 +124,7 @@ const CalendarBody = ({
     const [modalEndhh, setModalEndhh] = useState("24");
     const [modalEndmm, setModalEndmm] = useState("00");
     const [isAllDay, toggleIsAllDay] = useState(true);
+
     return (
         <div>
             <h1>
@@ -128,13 +140,15 @@ const CalendarBody = ({
                     toggleModal(false);
                 }}
                 save={() => {
-                    handleScheduleArrayChange({
-                        title: "scheduleObject.title",
-                        startDate: "20221212",
-                        startTime: "1120",
-                        endDate: "20221225",
-                        endTime: "2314",
-                    });
+                    const newObject = {
+                        title: "Hello",
+                        startDay: "20221212",
+                        endDay: "20221213",
+                        isAllDay: true,
+                        startTime: "0000",
+                        endTime: "2400",
+                    };
+                    setScheduleArray([...scheduleArray, newObject]);
                 }}
             >
                 <table className="modal-table">
@@ -147,12 +161,14 @@ const CalendarBody = ({
                         <tr>
                             <td>
                                 Start:
-                                <button onClick={/*TODO*//*TODO*//*TODO*//*TODO*/}>{isAllDay ? "Add Time" : "All day"}</button>
+                                <button onClick={() => toggleIsAllDay(!isAllDay)}>
+                                    {isAllDay ? "Add Time" : "All day"}
+                                </button>
                                 <DatePicker
                                     selected={modalStartDate}
                                     onChange={(date: Date) => setModalStartDate(date)}
                                 />
-                                <select>
+                                <select hidden={isAllDay}>
                                     <option value="00">00</option>
                                     <option value="01">01</option>
                                     <option value="02">02</option>
@@ -178,7 +194,7 @@ const CalendarBody = ({
                                     <option value="22">22</option>
                                     <option value="23">23</option>
                                 </select>
-                                <select>
+                                <select hidden={isAllDay}>
                                     <option value="00">00</option>
                                     <option value="15">15</option>
                                     <option value="30">30</option>
@@ -190,7 +206,7 @@ const CalendarBody = ({
                             <td>
                                 End:
                                 <DatePicker selected={modalEndDate} onChange={(date: Date) => setModalEndDate(date)} />
-                                <select>
+                                <select hidden={isAllDay}>
                                     <option value="00">00</option>
                                     <option value="01">01</option>
                                     <option value="02">02</option>
@@ -216,7 +232,7 @@ const CalendarBody = ({
                                     <option value="22">22</option>
                                     <option value="23">23</option>
                                 </select>
-                                <select>
+                                <select hidden={isAllDay}>
                                     <option value="00">00</option>
                                     <option value="15">15</option>
                                     <option value="30">30</option>

@@ -3,10 +3,11 @@
 ```
 [  
     {
-        title: string,
+        title: string,  
         startDay: yyyymmdd,    
+        endDay: yyyymmdd, 
+        isAllDay: boolean, 
         startTime: hhmm,  
-        endDay: yyyymmdd,  
         endTime: hhmm,  
     },
     {
@@ -14,5 +15,3 @@
     },
 ]
 ```
-
-All Day: 00:00 ~ 24:00
