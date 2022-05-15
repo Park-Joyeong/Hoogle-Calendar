@@ -2,15 +2,6 @@ import React, { useState } from "react";
 import MonthSelector from "./CalendarComponents/MonthSelector";
 import CalendarBody from "./CalendarComponents/CalendarBody";
 
-type Schedule = {
-    title: string;
-    startDay: string;
-    endDay: string;
-    isAllDay: boolean;
-    startTime: string;
-    endTime: string;
-};
-
 const Calendar = () => {
     const currentYYYYMMDD = getCurrentYYYYMMDD();
     const [selectedYYYYMMDD, setSelectedYYYYMMDD] = useState(currentYYYYMMDD);
@@ -36,7 +27,6 @@ const Calendar = () => {
     const handleSelectedYYYYMMDDChange = (yyyymmdd: string) => {
         setSelectedYYYYMMDD(yyyymmdd);
     };
-    console.log(scheduleArray);
     return (
         <div>
             <MonthSelector
@@ -45,7 +35,7 @@ const Calendar = () => {
             />
             SELECTED YYYYMMDD : {selectedYYYYMMDD}
             <br />
-            SCEDULE ARRAY:{" "}
+            SCEDULE ARRAY:
             {scheduleArray.map((scheduleObj) => (
                 <div>title: {scheduleObj.title}</div>
             ))}
