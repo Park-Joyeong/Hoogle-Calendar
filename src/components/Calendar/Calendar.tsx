@@ -14,16 +14,7 @@ const Calendar = () => {
             startTime: string;
             endTime: string;
         }[]
-    >([
-        {
-            title: "Hello",
-            startDay: "20221212",
-            endDay: "20221213",
-            isAllDay: true,
-            startTime: "0000",
-            endTime: "2400",
-        },
-    ]);
+    >([]);
     const handleSelectedYYYYMMDDChange = (yyyymmdd: string) => {
         setSelectedYYYYMMDD(yyyymmdd);
     };
@@ -37,7 +28,11 @@ const Calendar = () => {
             <br />
             SCEDULE ARRAY:
             {scheduleArray.map((scheduleObj) => (
-                <div>title: {scheduleObj.title}</div>
+                <div>
+                    title: {scheduleObj.title}, startDay: {scheduleObj.startDay}, endDay : {scheduleObj.endDay},
+                    isAllDay: {scheduleObj.isAllDay ? "true" : "false"}, startTime: {scheduleObj.startTime}, endTime:
+                    {scheduleObj.endTime}
+                </div>
             ))}
             <CalendarBody
                 selectedYYYYMMDD={selectedYYYYMMDD}

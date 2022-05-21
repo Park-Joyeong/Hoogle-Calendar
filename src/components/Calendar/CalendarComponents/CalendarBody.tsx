@@ -28,14 +28,6 @@ export interface Props {
     ) => void;
 }
 
-interface ScheduleObject {
-    title: string;
-    startDate: string;
-    startTime: string;
-    endDate: string;
-    endTime: string;
-}
-
 const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange, scheduleArray, setScheduleArray }: Props) => {
     const firstDay = 1;
     const weekdayIdxOfFirstDay = new Date(
@@ -76,7 +68,13 @@ const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange, schedule
                         toggleModal(true);
                     }}
                 >
-                    {i}
+                    <div key={i}>{i}</div>
+                    {scheduleArray.map((scheduleObject) => {
+                        const currDay = selectedYYYYMMDD.substring(0, 6) + i.toString().padStart(2, "0");
+                        if (currDay >= scheduleObject.startDay && currDay <= scheduleObject.endDay) {
+                            return <div>{scheduleObject.title}</div>;
+                        }
+                    })}
                 </td>,
             );
             weekdayIdx++;
@@ -117,6 +115,7 @@ const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange, schedule
         return new Date(parseInt(selectedYYYY), parseInt(selectedMM) - 1, parseInt(selectedDD));
     };
 
+    const [modalTitle, setModalTitle] = useState("");
     const [modalStartDate, setModalStartDate] = useState(getSelectedDate());
     const [modalStarthh, setModalStarthh] = useState("00");
     const [modalStartmm, setModalStartmm] = useState("00");
@@ -125,6 +124,12 @@ const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange, schedule
     const [modalEndmm, setModalEndmm] = useState("00");
     const [isAllDay, toggleIsAllDay] = useState(true);
 
+    const getYYYYMMDD = (inputDate: Date) => {
+        const year = inputDate.getFullYear().toString();
+        const month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
+        const day = inputDate.getDate().toString().padStart(2, "0");
+        return year + month + day;
+    };
     return (
         <div>
             <h1>
@@ -141,21 +146,29 @@ const CalendarBody = ({ selectedYYYYMMDD, handleSelectedYYYYMMDDChange, schedule
                 }}
                 save={() => {
                     const newObject = {
-                        title: "Hello",
-                        startDay: "20221212",
-                        endDay: "20221213",
-                        isAllDay: true,
-                        startTime: "0000",
-                        endTime: "2400",
+                        title: modalTitle,
+                        startDay: getYYYYMMDD(modalStartDate),
+                        endDay: getYYYYMMDD(modalEndDate),
+                        isAllDay: isAllDay,
+                        startTime: modalStarthh + modalStartmm,
+                        endTime: modalEndhh + modalEndmm,
                     };
                     setScheduleArray([...scheduleArray, newObject]);
+                    setModalTitle("");
+                    toggleIsAllDay(true);
+                    setModalStarthh("00");
+                    setModalStartmm("00");
+                    setModalEndhh("00");
+                    setModalEndmm("00");
+                    toggleModal(false);
                 }}
             >
                 <table className="modal-table">
                     <tbody>
                         <tr>
                             <td>
-                                Title: <input type="text" />
+                                Title:
+                                <input type="text" value={modalTitle} onChange={(e) => setModalTitle(e.target.value)} />
                             </td>
                         </tr>
                         <tr>
